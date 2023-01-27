@@ -10,3 +10,4 @@
 int init_connection(struct config *config);
 int get_response(struct client **list);
 int send_request(char *request);
+int parse_client_list(struct client **head);

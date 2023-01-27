@@ -13,7 +13,7 @@ struct client{
 	struct client *next;
 };
 
-int parse_client_list(struct client **head, char *message);
+void add_client(struct client **head, struct client *client);
 int print_client_list(struct client *list);
 void delete_client_list(struct client *list);
 #endif

@@ -10,6 +10,9 @@ error_t parse_opt(int key, char *arg, struct argp_state *state)
 	case 'p':
 		config->port = strtoul(arg, 0L, 10);
 		break;
+	case 's':
+		strcpy(config->server_name, arg);
+		break;
 	default:
 		return ARGP_ERR_UNKNOWN;
 	}
