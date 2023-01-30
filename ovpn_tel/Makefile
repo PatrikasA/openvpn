@@ -19,7 +19,6 @@ define Package/ovpn_tel/install
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ovpn_tel $(1)/usr/bin
 	$(INSTALL_BIN) ./files/ovpn_tel.init $(1)/etc/init.d/ovpn_tel
-	$(INSTALL_CONF) ./files/ovpn_tel.config $(1)/etc/config/ovpn_tel
 endef
 
 $(eval $(call BuildPackage,ovpn_tel))
