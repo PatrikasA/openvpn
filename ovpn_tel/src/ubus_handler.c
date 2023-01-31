@@ -1,5 +1,7 @@
 #include "ubus_handler.h"
 
+extern const struct blobmsg_policy disconnect_policy[];
+
 int ovpn_get(struct ubus_context *ctx, struct ubus_object *obj,
 		      struct ubus_request_data *req, const char *method,
 		      struct blob_attr *msg)
@@ -28,4 +30,19 @@ int ovpn_get(struct ubus_context *ctx, struct ubus_object *obj,
 	blob_buf_free(&b);
 	delete_client_list(clients);
 	return 0;
+}
+
+int ovpn_disconnect(struct ubus_context *ctx, struct ubus_object *obj, struct ubus_request_data *req,
+			   const char *method, struct blob_attr *msg)
+{
+	char message[128];
+	struct blob_attr *tb[1];
+	struct blob_buf b = {};
+	blobmsg_parse(disconnect_policy, 1, tb, blob_data(msg), blob_len(msg));
+	if(!tb[0])
+		return UBUS_STATUS_INVALID_ARGUMENT;
+	char *address = blobmsg_get_string(tb[0]);
+	blob_buf_init(&b, 0);
+	sprintf(message, "kill %s\n", address);
+	send_request(message);
 }

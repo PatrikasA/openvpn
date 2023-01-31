@@ -26,12 +26,11 @@ int connect_sock(struct sockaddr_in* server_sock)
 {
     int rc = 0;
     rc	   = connect(sock, (struct sockaddr *)server_sock, sizeof(*server_sock));
-    if(rc)
-    {
-	    syslog(LOG_ERR, "Failed to connect to openvpn server: %d",rc);
+    if (rc) {
+	    syslog(LOG_ERR, "Failed to connect to openvpn server: %d", rc);
 	    return 1;
     }
-	    syslog(LOG_INFO, "Connected to openvpn server");
+    syslog(LOG_INFO, "Connected to openvpn server");
     return 0;
 }
 
@@ -59,7 +58,7 @@ int send_request(char* request)
 
 int parse_client_list(struct client** head)
 {
-    char* response = malloc(sizeof(char)*200);
+    char *response   = malloc(sizeof(char) * 200);
     unsigned int len = 200;
     getline(&response, &len, in);
     ssize_t chars_read = -1;
@@ -83,9 +82,9 @@ int parse_client_list(struct client** head)
 			    add_client(head, client);
 		        chars_read = getline(&response, &len, in);
 		    }
-	    return 0;
+		    return 0;
 	    }
-    chars_read= getline(&response, &len, in);
+	    chars_read = getline(&response, &len, in);
     }
     free(response);
 }
